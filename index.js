@@ -16,7 +16,7 @@ const addProperty = (row) => {
   console.log(`Unsupported Field Type: "${row.fieldType}"`)
 }
 
-const addSelect = (row) => {
+const addNumber = (row) => {
   console.log(`Adding Select "${row.label}"`)
 
   inputs.push(
@@ -31,8 +31,10 @@ const addSelect = (row) => {
   )
 }
 
-const addNumber = (row) => {
+const addSelect = (row) => {
   console.log(`Adding Number "${row.label}"`)
+
+  console.log(row.options)
 
   inputs.push(
     {
@@ -42,36 +44,26 @@ const addNumber = (row) => {
       "type": "enumeration",
       "fieldType": "select",
       "groupName": row.groupName,
-      "options": row.options
+      "options": JSON.parse(row.options)
     }
   )
 }
 
 
-fs.createReadStream('inputs.csv')
+fs.createReadStream('input.csv')
   .pipe(csv())
-  .on('data', (row) => results.push(row))
+  .on('data', (row) => addProperty(row))
   .on('end', () => {
-
 
     const BatchInputPropertyCreate = {
       inputs
     }
 
-    /*
     hubspotClient.crm.properties.batchApi.create(objectType, BatchInputPropertyCreate).then(res => {
-
+      console.log(res)
     }).catch(err => {
-
+      console.log(err)
     }).finally(() => {
-
+      console.log('Finished')
     })
-    */
-  });
-
-
-
-
-
-const BatchInputPropertyCreate = { inputs: [{ "label": "My Contact Property", "type": "enumeration", "fieldType": "select", "groupName": "contactinformation", "hidden": false, "displayOrder": 2, "hasUniqueValue": false, "formField": true, "options": [{ "label": "Option A", "description": "Choice number one", "value": "A", "displayOrder": 1, "hidden": false }, { "label": "Option B", "description": "Choice number two", "value": "B", "displayOrder": 2, "hidden": false }] }] };
-
+  })

@@ -1,0 +1,29 @@
+{
+  "name": "hubspot-property-import",
+  "version": "0.0.1",
+  "description": "Imports HubSpot properties from CSV to HubSpot API",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/magnusfoldager/hubspot-property-import.git"
+  },
+  "keywords": [
+    "hubspot",
+    "property",
+    "import"
+  ],
+  "author": "Magnus Foldager",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/magnusfoldager/hubspot-property-import/issues"
+  },
+  "homepage": "https://github.com/magnusfoldager/hubspot-property-import#readme",
+  "dependencies": {
+    "@hubspot/api-client": "^8.8.0",
+    "csv-parser": "^3.0.0",
+    "dotenv": "^16.0.3"
+  }
+}

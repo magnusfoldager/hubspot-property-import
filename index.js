@@ -7,14 +7,15 @@ const hubspot = require('@hubspot/api-client');
 
 const hubspotClient = new hubspot.Client({ "accessToken": process.env.PROD_ACCESS_TOKEN });
 
-const objectType = 'company'
-const fileName = 'input-file.csv'
+const objectType = 'deal'
+const fileName = 'INSERT_FILE_NAME.csv'
 
 let inputs = []
 
 const addProperty = (row) => {
   if (row.fieldType == "number") return addNumber(row)
   if (row.fieldType == "select") return addSelect(row)
+  if (row.fieldType == "checkbox") return addOption(row)
   if (row.fieldType == "string") return addString(row)
   if (row.fieldType == "multi") return addMulti(row)
   if (row.fieldType == "owner") return addOwner(row)
@@ -49,6 +50,24 @@ const addSelect = (row) => {
       "description": row.description,
       "type": "enumeration",
       "fieldType": "select",
+      "groupName": row.groupName,
+      "options": JSON.parse(fixedOptions)
+    }
+  )
+}
+
+const addCheckbox = (row) => {
+  console.log(`Adding Checkbox "${row.label}"`)
+
+  const fixedOptions = row.options.replace(/FALSE/g,'false')
+
+  inputs.push(
+    {
+      "name": row.name,
+      "label": row.label,
+      "description": row.description,
+      "type": "enumeration",
+      "fieldType": "checkbox",
       "groupName": row.groupName,
       "options": JSON.parse(fixedOptions)
     }

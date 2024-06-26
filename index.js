@@ -15,7 +15,7 @@ let inputs = []
 const addProperty = (row) => {
   if (row.fieldType == "number") return addNumber(row)
   if (row.fieldType == "select") return addSelect(row)
-  if (row.fieldType == "checkbox") return addOption(row)
+  if (row.fieldType == "checkbox") return addCheckbox(row)
   if (row.fieldType == "string") return addString(row)
   if (row.fieldType == "multi") return addMulti(row)
   if (row.fieldType == "owner") return addOwner(row)
